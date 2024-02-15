@@ -115,6 +115,8 @@ silent! set listchars+=trail:·
 colorscheme darkblue
 set cursorline
 silent! set cursorlineopt=number
+hi CursorLine cterm=NONE " disable cursorLine underline
+hi CursorLineNr cterm=NONE " disable cursorLineCol underline
 hi Normal guibg=NONE ctermbg=NONE   " transparent background
 
 " Enable color highlighting inside markdown code blocs
