@@ -9,6 +9,8 @@
 "                                                                    "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" (some commands are preceded with silent! for compatibility with previous versions)
+
 " ######## FILE FORMATS #######
 set encoding=utf-8
 scriptencoding utf-8
@@ -43,7 +45,7 @@ set ttimeoutlen=0     " Remove timeout when hitting escape (ex: V-mode)
 set autoread              " Automatically reload changes if detected
 
 
-set belloff=all           " Disable error bell
+silent! set belloff=all           " Disable error bell
 
 " SEARCH
 set ignorecase            " Case insensitive search
@@ -53,11 +55,11 @@ nnoremap <silent> <CR> :noh<CR><CR>" Disable highlight when pressing enter again
 
 " HISTORY
 " Persistent undo
-silent call mkdir($HOME."/.vimundo", "p") " create folder if not existing
-set undodir=$HOME."/.vimundo"
-set undofile
-set undolevels=1000
-set undoreload=10000
+silent! call mkdir($HOME."/.vimundo", "p") " create folder if not existing
+silent! set undodir="$HOME./.vimundo"
+silent! set undofile
+silent! set undolevels=1000
+silent! set undoreload=10000
 
 set history=1000                     " Command history
 
@@ -82,14 +84,14 @@ set confirm " prompt for saving instead of error
 " ############### UI ###############
 
 " apply color for syntax
-syntax on
+silent! syntax on
 "set termguicolors " show real colors
 
 set title " display file name on window title
 set showcmd " show live command
 
 set number  " Current line number
-set relativenumber  " Relative line numbers
+silent! set relativenumber  " Relative line numbers
 
 set showmatch                         " Show matching brackets
 set matchpairs=(:),{:},[:],<:>
@@ -103,25 +105,25 @@ autocmd! VimResized,VimEnter,WinEnter,WinLeave * call SetAutoScrolloff()
 
 set list                              " Enable listchars
 " Invisible char and their representation
-set listchars=extends:→               " Show arrow if line continues rightwards
-set listchars+=precedes:←             " Show arrow if line continues leftwards
-set listchars+=tab:⊦—▸
-set listchars+=trail:·
+silent! set listchars=extends:→               " Show arrow if line continues rightwards
+silent! set listchars+=precedes:←             " Show arrow if line continues leftwards
+silent! set listchars+=tab:⊦—▸
+silent! set listchars+=trail:·
 
 " Color current line number
 ""
 colorscheme darkblue
 set cursorline
-set cursorlineopt=number
+silent! set cursorlineopt=number
 hi Normal guibg=NONE ctermbg=NONE   " transparent background
 
 " Enable color highlighting inside markdown code blocs
 let g:markdown_fenced_languages = ['python', 'cpp', 'c', 'java', 'rust', 'bash', 'css', 'js=javascript', 'html']
 
-" Change the cursor length in function of the mode (VTE compatible terminals)
+" Change the cursor lenght in function of the mode (VTE compatible terminals)
 " https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
 let &t_SI = "\<Esc>[6 q"
-let &t_SR = "\<Esc>[4 q"
+silent! let &t_SR = "\<Esc>[4 q"
 let &t_EI = "\<Esc>[2 q"
 
 set splitright                        " Open new splits to the right
@@ -129,8 +131,7 @@ set splitbelow                        " Open new splits to the bottom
 
 set shortmess=I                       " disable start message
 
-set signcolumn=yes                     " Always have a sign and number columns
-"set signcolumn=number                 " Fusion sign and number columns
+silent! set signcolumn=yes                     " Always have a sign and number columns
 hi SignColumn ctermbg=NONE guibg=NONE  " Sign column has same color as number column
 
 function! SetupEnvironment()
@@ -141,6 +142,7 @@ function! SetupEnvironment()
     if (&ft == 'markdown' || &ft == 'text' || &ft == 'html')
         setlocal wrap
     else
+        " default textwidth slightly narrower than the default
         setlocal nowrap
     endif
 endfunction
@@ -197,5 +199,3 @@ map <s-LEFT> :vertical resize +5 <Cr>
 map <s-RIGHT> :vertical resize -5 <Cr>
 map <s-UP> :resize +5 <Cr>
 map <s-DOWN> :resize -5 <Cr>
-
-
