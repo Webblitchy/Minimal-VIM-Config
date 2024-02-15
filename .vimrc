@@ -54,7 +54,7 @@ nnoremap <silent> <CR> :noh<CR><CR>" Disable highlight when pressing enter again
 " HISTORY
 " Persistent undo
 silent call mkdir($HOME."/.vimundo", "p") " create folder if not existing
-set undodir=~/.vimundo
+set undodir=$HOME."/.vimundo"
 set undofile
 set undolevels=1000
 set undoreload=10000
@@ -118,7 +118,7 @@ hi Normal guibg=NONE ctermbg=NONE   " transparent background
 " Enable color highlighting inside markdown code blocs
 let g:markdown_fenced_languages = ['python', 'cpp', 'c', 'java', 'rust', 'bash', 'css', 'js=javascript', 'html']
 
-" Change the cursor lenght in function of the mode (VTE compatible terminals)
+" Change the cursor length in function of the mode (VTE compatible terminals)
 " https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
 let &t_SI = "\<Esc>[6 q"
 let &t_SR = "\<Esc>[4 q"
@@ -141,7 +141,6 @@ function! SetupEnvironment()
     if (&ft == 'markdown' || &ft == 'text' || &ft == 'html')
         setlocal wrap
     else
-        " default textwidth slightly narrower than the default
         setlocal nowrap
     endif
 endfunction
