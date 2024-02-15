@@ -156,14 +156,6 @@ set fillchars=vert:\│
 hi VertSplit term=NONE cterm=NONE gui=NONE ctermfg=DarkGrey
 
 
-" automatically create the folder if not already exists
-augroup Mkdir
-  autocmd!
-  autocmd BufWritePre * call mkdir(expand("<afile>:p:h"), "p")
-augroup END
-
-
-
 " ############ COMMANDS ############
 " Command W : save as root (when file is not open as it)
 command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
