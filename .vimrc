@@ -85,7 +85,7 @@ set confirm " prompt for saving instead of error
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
 if &t_Co > 2 || has("gui_running")
-  syntax on
+  silent! syntax on  " syntax file can be missing
   set incsearch  " Show search results as you type
 endif
 
