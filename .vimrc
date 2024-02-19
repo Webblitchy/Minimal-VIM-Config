@@ -50,7 +50,6 @@ silent! set belloff=all           " Disable error bell
 " SEARCH
 set ignorecase            " Case insensitive search
 set smartcase             " Sensible to capital letters
-set incsearch             " Show search results as you type
 nnoremap <silent> <CR> :noh<CR><CR>" Disable highlight when pressing enter again
 
 " HISTORY
@@ -83,8 +82,13 @@ set confirm " prompt for saving instead of error
 
 " ############### UI ###############
 
-" apply color for syntax
-silent! syntax on
+" Switch syntax highlighting on, when the terminal has colors
+" Also switch on highlighting the last used search pattern.
+if &t_Co > 2 || has("gui_running")
+  syntax on
+  set incsearch  " Show search results as you type
+endif
+
 "set termguicolors " show real colors
 
 set title " display file name on window title
