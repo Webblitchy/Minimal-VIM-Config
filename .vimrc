@@ -179,6 +179,8 @@ nnoremap <silent> <TAB> :bn<CR>
 " close buffer with --
 nnoremap <silent> <leader>- :bd<CR>
 
+" disable weird copy when yank in visual mode
+vnoremap p pgvy
 
 " register macro with qq and play it with Q
 nnoremap Q @q
