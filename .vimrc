@@ -116,7 +116,7 @@ silent! set listchars+=trail:·
 
 " Color current line number
 ""
-colorscheme darkblue
+colorscheme slate
 set cursorline
 silent! set cursorlineopt=number
 hi CursorLine cterm=NONE " disable cursorLine underline
