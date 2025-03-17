@@ -17,6 +17,9 @@ scriptencoding utf-8
 set fileformat=unix
 
 " ###### BEFORE ALL #####
+
+silent! set termguicolors " show real colors
+
 let mapleader = "-" " Define leader key
 autocmd BufEnter * silent! lcd %:p:h " automatically set vim path to current dir
 
@@ -89,7 +92,6 @@ if &t_Co > 2 || has("gui_running")
   set incsearch  " Show search results as you type
 endif
 
-"set termguicolors " show real colors
 
 set title " display file name on window title
 set showcmd " show live command
@@ -111,17 +113,22 @@ set list                              " Enable listchars
 " Invisible char and their representation
 silent! set listchars=extends:→               " Show arrow if line continues rightwards
 silent! set listchars+=precedes:←             " Show arrow if line continues leftwards
-silent! set listchars+=tab:⊦—▸
+silent! set listchars+=tab:--> " ⊦—▸
 silent! set listchars+=trail:·
 
 " Color current line number
 ""
-colorscheme slate
+colorscheme desert
 set cursorline
 silent! set cursorlineopt=number
+hi Normal guibg=NONE ctermbg=NONE " transparent background
 hi CursorLine cterm=NONE " disable cursorLine underline
+hi CursorLine ctermbg=NONE guibg=NONE " disable cursorLine background
 hi CursorLineNr cterm=NONE " disable cursorLineCol underline
-hi Normal guibg=NONE ctermbg=NONE   " transparent background
+hi EndOfBuffer  guibg=NONE ctermbg=NONE " transparent end of buffer (~)
+hi TabLine term=NONE cterm=NONE " remove underline
+hi TabLineFill guibg=NONE ctermbg=NONE term=NONE cterm=NONE " transparent tabline
+hi MatchParen guibg=black ctermbg=16 " matched char is in black
 
 silent! set signcolumn=yes                     " Always have a sign and number columns
 hi SignColumn ctermbg=NONE guibg=NONE  " Sign column has same color as number column
@@ -159,6 +166,9 @@ autocmd! BufReadPost,BufNewFile * call SetupEnvironment()
 " Remove the ugly splits separator
 set fillchars=vert:\│
 hi VertSplit term=NONE cterm=NONE gui=NONE ctermfg=DarkGrey
+
+" Remove end of file character (~)
+silent! set fillchars=eob:\
 
 " Show buffers in tab bar
 set showtabline=2      " always show tab line
@@ -204,12 +214,6 @@ nnoremap Q @q
 
 " use Y with the same logic as C and D
 nnoremap Y y$
-
-" Navigate easily between windows
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
 
 " Resize easily windows
 map <s-LEFT> :vertical resize +5 <Cr>
