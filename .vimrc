@@ -168,7 +168,7 @@ set fillchars=vert:\│
 hi VertSplit term=NONE cterm=NONE gui=NONE ctermfg=DarkGrey
 
 " Remove end of file character (~)
-silent! set fillchars=eob:\
+silent! set fillchars=eob:\ "(space char)
 
 " Show buffers in tab bar
 set showtabline=2      " always show tab line
