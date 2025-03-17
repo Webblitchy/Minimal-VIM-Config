@@ -29,13 +29,13 @@ set backspace=indent,eol,start  " more powerful backspacing
 " Indentation settings
 set autoindent " always set autoindenting on
 set copyindent " copy the previous indentation on autoindenting
-set expandtab " expand tabs to spaces 
+set expandtab " expand tabs to spaces
 set shiftround " use multiple of shiftwidth when indenting with '<' and '>'
 set shiftwidth=4 " number of spaces to use for autoindenting
 set smartindent
 set smarttab " insert tabs on the start of a line according to shiftwidth, not tabstop
 set softtabstop=4 " when hitting <BS>, pretend like a tab is removed, even if spaces
-set tabstop=4 " tabs are n spaces 
+set tabstop=4 " tabs are n spaces
 
 
 " Timeout before a command key stop waiting
@@ -123,6 +123,9 @@ hi CursorLine cterm=NONE " disable cursorLine underline
 hi CursorLineNr cterm=NONE " disable cursorLineCol underline
 hi Normal guibg=NONE ctermbg=NONE   " transparent background
 
+silent! set signcolumn=yes                     " Always have a sign and number columns
+hi SignColumn ctermbg=NONE guibg=NONE  " Sign column has same color as number column
+
 " Enable color highlighting inside markdown code blocs
 let g:markdown_fenced_languages = ['python', 'cpp', 'c', 'java', 'rust', 'bash', 'css', 'js=javascript', 'html']
 
@@ -137,8 +140,6 @@ set splitbelow                        " Open new splits to the bottom
 
 set shortmess=I                       " disable start message
 
-silent! set signcolumn=yes                     " Always have a sign and number columns
-hi SignColumn ctermbg=NONE guibg=NONE  " Sign column has same color as number column
 
 function! SetupEnvironment()
     "Restore cursor position
@@ -159,11 +160,27 @@ autocmd! BufReadPost,BufNewFile * call SetupEnvironment()
 set fillchars=vert:\│
 hi VertSplit term=NONE cterm=NONE gui=NONE ctermfg=DarkGrey
 
+" Show buffers in tab bar
+set showtabline=2      " always show tab line
+set tabline=%!MyBuffLine() " show tabline as bufferline
+
+function! MyBuffLine()
+    let s = ''
+    for i in range(1, bufnr('$'))
+        if bufexists(i) && buflisted(i)
+            let s .= '%' . i . 'T'
+            let s .= (i == bufnr('%') ? '%#TabLineSel#' : '%#TabLine#')
+            let s .= ' ' . fnamemodify(bufname(i), ':t') . ' '
+        endif
+    endfor
+    let s .= '%T%#TabLineFill#%='
+    return s
+endfunction
+
 
 " ############ COMMANDS ############
 " Command W : save as root (when file is not open as it)
 command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
-
 
 
 " ################ REMAPS / SHORTCUTS ################
