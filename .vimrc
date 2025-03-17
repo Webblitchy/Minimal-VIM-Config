@@ -201,7 +201,7 @@ nnoremap <C-c> <Esc>
 vnoremap <C-c> <Esc>
 
 " to make TAB rotate between all buffers
-nnoremap <silent> <TAB> :bn<CR>
+"nnoremap <silent> <TAB> :bn<CR> " conflicts with ctrl-i (seen as same char)
 
 " close buffer with --
 nnoremap <silent> <leader>- :bd<CR>
