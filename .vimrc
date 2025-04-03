@@ -43,7 +43,7 @@ set tabstop=4 " tabs are n spaces
 
 " Timeout before a command key stop waiting
 set timeoutlen=500    " Timeout before a command key stop waiting
-set ttimeoutlen=0     " Remove timeout when hitting escape (ex: V-mode)
+set ttimeoutlen=10     " Small timeout when hitting escape (ex: V-mode)
 
 set autoread              " Automatically reload changes if detected
 
